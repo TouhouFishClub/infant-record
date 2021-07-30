@@ -6,7 +6,10 @@ Vue.use(VueRouter)
 
 const routes = [
   { path: '/', redirect: '/home' },
-  { path: '/login', name: 'Login', component: () => import('@/pages/Login.vue') },
+  { path: '/user', redirect: '/login', component: () => import('@/views/UserForm.vue'), children: [
+    { path: '/login', name: 'Login', component: () => import('@/pages/Login.vue') },
+    { path: '/register', name: 'Register', component: () => import('@/pages/Register.vue') },
+  ]},
   { path: '/main', name: 'MainBoard', component: () => import('@/views/MainBoard.vue'), redirect: '/home', children: [
       { path: '/home', name: 'Home', component: () => import('@/pages/Home.vue') },
   ]},

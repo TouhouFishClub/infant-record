@@ -1,7 +1,6 @@
 const path = require('path-extra')
 const express = require('express')
 const bodyParser = require('body-parser')
-const platform = require('./platform')()
 const morgan = require('morgan')
 const session = require('express-session');
 const svgCaptcha = require('svg-captcha');
@@ -39,23 +38,6 @@ app.get('/p/captcha', (req, res) => {
 	res.type('svg');
 	res.status(200).send(captcha.data);
 });
-
-/**
- * @api {get} /api/getPlatforms 1. 获取所有机构
- * @apiVersion 0.0.1
- * @apiName 1. 获取所有机构
- * @apiGroup 获取机构
- *
- * @apiSuccess {String} id 机构id（pid）
- * @apiSuccess {String} label 机构名称
- * @apiSuccess {String} collection 数据库表名
- */
-app.get('/api/getPlatforms', (req, res) => {
-	res.send({
-		status: 'ok',
-		message: Object.values(platform),
-	})
-})
 
 app.use('/p/a', require('./routers/user'))
 app.use('/api/uni', require('./routers/api'))

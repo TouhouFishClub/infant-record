@@ -1,7 +1,6 @@
 const express = require('express');
 const Db = require('../connectDb')
 const router = express.Router();
-const platform = require('../platform')()
 const fs = require('fs-extra')
 const path = require('path-extra')
 const multer = require('multer')
@@ -24,22 +23,7 @@ const checkConnect = () => new Promise((resolve, reject) => {
 
 router.use(async (req, res, next) => {
 	await checkConnect()
-	let { pid } = req.query
-	if(pid) {
-		if(platform[pid]) {
-			next()
-		} else {
-			res.send({
-				status: 'err',
-				message: '没有相应机构'
-			})
-		}
-	} else {
-		res.send({
-			status: 'err',
-			message: '必须有机构id'
-		})
-	}
+	next()
 })
 
 /**
@@ -47,10 +31,9 @@ router.use(async (req, res, next) => {
  * @apiVersion 0.0.1
  * @apiName 1. 获取信息
  * @apiGroup 通用接口/获取数据
- *
- * @apiSuccess {Object} object 题目详情，与数据库存储一致
  */
 router.get('/fetch', async (req, res) => {
+	let { _id } = req.query
 	if(!_id) {
 		res.send({
 			status: 'err',
@@ -59,11 +42,15 @@ router.get('/fetch', async (req, res) => {
 		return
 	}
 
-	let data = await client.db('db_question').collection(platform[pid].collection).findOne({'_id': parseInt(_id)}) || {}
+	let data = await client.db('db_baby').collection('cl_baby_info').find({}).toArray()
 
-	// console.log(_id)
-	// console.log(typeof _id)
-	// console.log(data)
+	if(data.length < 1) {
+		res.send({
+			status: 'err',
+			message: '未查询到任何数据'
+		})
+		return
+	}
 
 	res.send({
 		status: 'ok',
@@ -72,18 +59,67 @@ router.get('/fetch', async (req, res) => {
 })
 
 /**
- * @api {post} /api/uni/fetch 1. 修改题目详情
+ * @api {post} /api/update 2. 修改信息
  * @apiVersion 0.0.1
- * @apiName 1. 修改题目详情
+ * @apiName 2. 修改信息
  * @apiGroup 通用接口/修改数据
  *
- * @apiParam {String} pid （query）机构id
- * @apiParam {Object} Object （body）修改内容，与题目详情需一致，必须包含_id
+ * @apiParam {Object} Object （body）修改内容，与存储数据一致，必须包含_id
  *
  */
 router.post('/update', async (req, res) => {
-	let { _id } =  req.body
-	let { pid } = req.query
+	let data = req.body
+	if(!data._id) {
+		res.send({
+			status: 'err',
+			message: '没有id'
+		})
+		return
+	}
+	await client.db('db_baby').collection('cl_baby_info').updateOne(
+		{'_id': data._id},
+		{'$set': data}
+	)
+	res.send({
+		status: 'ok'
+	})
+})
+
+/**
+ * @api {post} /api/add 3. 增加信息
+ * @apiVersion 0.0.1
+ * @apiName 3. 增加信息
+ * @apiGroup 通用接口/修改数据
+ *
+ * @apiParam {Object} Object （body）修改内容，与存储数据一致，必须包含_id
+ *
+ */
+router.post('/add', async (req, res) => {
+	let data = req.body
+	if(!data._id) {
+		res.send({
+			status: 'err',
+			message: '没有id'
+		})
+		return
+	}
+	await client.db('db_baby').collection('cl_baby_info').save(data)
+	res.send({
+		status: 'ok'
+	})
+})
+
+/**
+ * @api {get} /api/remove 4. 删除信息
+ * @apiVersion 0.0.1
+ * @apiName 4. 删除信息
+ * @apiGroup 通用接口/修改数据
+ *
+ * @apiParam {Number} _id （body）条目id
+ *
+ */
+router.post('/remove', async (req, res) => {
+	let { _id } = req.query
 	if(!_id) {
 		res.send({
 			status: 'err',
@@ -93,10 +129,7 @@ router.post('/update', async (req, res) => {
 	}
 	let data = req.body
 	delete data._id
-	await client.db('db_question').collection(platform[pid].collection).updateOne(
-		{'_id': parseInt(_id)},
-		{'$set': data}
-	)
+	await client.db('db_baby').collection('cl_baby_info').remove({'_id': _id})
 	res.send({
 		status: 'ok'
 	})

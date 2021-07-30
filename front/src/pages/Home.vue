@@ -20,6 +20,9 @@
     },
     components: {
       InfantList
+    },
+    beforeMount() {
+      this.$axios.get('/api')
     }
   }
 </script>

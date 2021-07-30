@@ -26,6 +26,13 @@ router.use(async (req, res, next) => {
 	next()
 })
 
+router.post('/test', async (req, res) => {
+	res.send({
+		message: 'test',
+		status: 'ok'
+	})
+})
+
 /**
  * @api {get} /api/fetch 1. 获取信息
  * @apiVersion 0.0.1

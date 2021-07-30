@@ -2,6 +2,8 @@
 
 import Vue from 'vue';
 import axios from "axios";
+import router from '@/router'
+import store from '@/store'
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -35,6 +37,13 @@ _axios.interceptors.response.use(
   },
   function(error) {
     // Do something with response error
+    let s = (error && error.response) ? error.response.status : 500
+    switch (s) {
+      case 401:
+        router.push('/login')
+        break
+    }
+
     return Promise.reject(error);
   }
 );

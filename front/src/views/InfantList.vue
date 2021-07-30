@@ -79,7 +79,7 @@
       },
 
       editItem (item) {
-        console.log(item)
+        this.$store.commit('editRecord', item)
       },
 
       deleteItem (item) {

@@ -4,6 +4,7 @@ const router = express.Router();
 const fs = require('fs-extra')
 const path = require('path-extra')
 const multer = require('multer')
+const ObjectId = require('mongodb').ObjectID;
 
 let client
 
@@ -75,8 +76,10 @@ router.post('/update', async (req, res) => {
 		})
 		return
 	}
+	let _id = ObjectId(data._id)
+	delete data._id
 	await client.db('db_baby').collection('cl_baby_info').updateOne(
-		{'_id': data._id},
+		{'_id': _id},
 		{'$set': data}
 	)
 	res.send({
@@ -128,7 +131,7 @@ router.post('/remove', async (req, res) => {
 	}
 	let data = req.body
 	delete data._id
-	await client.db('db_baby').collection('cl_baby_info').remove({'_id': _id})
+	await client.db('db_baby').collection('cl_baby_info').remove({'_id': ObjectId.Parse(_id)})
 	res.send({
 		status: 'ok'
 	})

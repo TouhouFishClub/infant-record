@@ -6,7 +6,17 @@
       fixed
       :dark="$store.state.isDark"
     >
-      2342342
+      <v-sheet
+        class="pa-4"
+      >
+        <v-avatar
+          class="mb-4"
+          color="grey darken-1"
+          size="64"
+        ></v-avatar>
+
+        <div>欢迎</div>
+      </v-sheet>
 
     </v-navigation-drawer>
 

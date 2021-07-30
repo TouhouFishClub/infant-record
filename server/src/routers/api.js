@@ -42,7 +42,7 @@ router.post('/test', async (req, res) => {
  */
 router.get('/fetch', async (req, res) => {
 
-	let data = await client.db('db_baby').collection('cl_baby_info').find({}).toArray()
+	let data = await client.db('db_baby').collection('cl_baby_info').find({'username': req.session.user.username}).toArray()
 
 	if(data.length < 1) {
 		res.send({
@@ -69,6 +69,7 @@ router.get('/fetch', async (req, res) => {
  */
 router.post('/update', async (req, res) => {
 	let data = req.body
+	data.username = req.session.user.username
 	if(!data._id) {
 		await client.db('db_baby').collection('cl_baby_info').save(data)
 		res.send({

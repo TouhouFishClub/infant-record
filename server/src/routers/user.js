@@ -121,7 +121,7 @@ const registerHandler = async (req, res, params) => {
 		return
 	}
 
-	let data = await client.db('db_question').collection('cl_user').findOne({'username': `${username}`}) || null
+	let data = await client.db('db_baby').collection('cl_user').findOne({'username': `${username}`}) || null
 	if(data) {
 		res.send({
 			status: 'err',

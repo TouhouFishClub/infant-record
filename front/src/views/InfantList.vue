@@ -29,13 +29,14 @@
     <v-dialog
       v-model="deleteDialog"
       width="500"
+      :dark="$store.state.isDark"
     >
       <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
+        <v-card-title class="text-h5">
           删除确认
         </v-card-title>
 
-        <v-card-text>
+        <v-card-text class="pt-4">
           删除数据后无法恢复，是否删除
         </v-card-text>
 
@@ -46,7 +47,7 @@
           <v-btn
             color="primary"
             text
-            @click="dialog = false"
+            @click="deleteDialog = false"
           >
             取消
           </v-btn>

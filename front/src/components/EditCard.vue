@@ -3,6 +3,7 @@
     v-model="$store.state.editDialog"
     persistent
     max-width="600px"
+    :dark="$store.state.isDark"
   >
     <v-card>
       <v-card-title>
@@ -70,14 +71,14 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
-          color="blue darken-1"
+          color="primary"
           text
           @click="$store.commit('closeEdit')"
         >
           关闭
         </v-btn>
         <v-btn
-          color="blue darken-1"
+          color="primary"
           text
           @click="saveEdit"
         >

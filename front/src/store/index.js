@@ -28,7 +28,9 @@ export default new Vuex.Store({
     },
     addNewRecord(state) {
       state.editType = 0
-      state.editInfos = {}
+      state.editInfos = {
+        ts: Date.now()
+      }
       state.editDialog = true
       console.log('add new record')
     },

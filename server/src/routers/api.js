@@ -46,7 +46,7 @@ router.get('/fetch', async (req, res) => {
 
 	if(data.length < 1) {
 		res.send({
-			status: 'err',
+			status: 'err_empty',
 			message: '未查询到任何数据'
 		})
 		return

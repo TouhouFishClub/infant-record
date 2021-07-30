@@ -7,16 +7,18 @@
       class="elevation-1"
       :dark="$store.state.isDark"
     >
+
+      <template v-slot:item.ts="{ item }">
+        {{ item.ts | timeFmt }}
+      </template>
       <template v-slot:item.actions="{ item }">
         <v-icon
-          small
-          class="mr-2"
+          class="mr-4"
           @click="editItem(item)"
         >
           mdi-pencil
         </v-icon>
         <v-icon
-          small
           @click="deleteItem(item)"
         >
           mdi-delete
@@ -65,6 +67,7 @@
 </template>
 
 <script>
+  import formatTime from "@/utils/formatTime.js";
   export default {
     name: "InfantList",
     data: () => ({
@@ -72,11 +75,11 @@
       deleteDialog: false,
       datas: [],
       headers: [
-        { text: '时间', sortable: false, value: 'ts'},
+        { text: '时间', value: 'ts'},
         { text: '体重（kg)', value: 'weight' },
         { text: '身高（cm)', value: 'height' },
         { text: '头围', value: 'hc' },
-        { text: '备注', value: 'remark' },
+        { text: '备注', value: 'remark', sortable: false },
         { text: '操作', value: 'actions', sortable: false },
       ],
     }),
@@ -98,6 +101,11 @@
       this.initialize()
     },
 
+    filters: {
+      timeFmt(data) {
+        return data ? formatTime(data, 'fullDateTime') : "";
+      }
+    },
     methods: {
       initialize () {
         this.datas = [{

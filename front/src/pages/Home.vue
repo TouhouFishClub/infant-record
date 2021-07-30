@@ -44,7 +44,11 @@
             let data = res.data
             switch(data.status) {
               case 'ok':
-                this.list = data.message
+                this.list = data.message || []
+                break
+              case 'err_empty':
+                this.$store.commit('alert', data.message)
+                this.list = []
                 break
               case 'err':
                 this.$store.commit('alert', data.message)

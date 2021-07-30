@@ -13,6 +13,7 @@
 
 <script>
   import InfantList from "@/views/InfantList";
+  import { mapState } from 'vuex'
   export default {
     name: 'Home',
     data() {
@@ -28,19 +29,35 @@
     components: {
       InfantList
     },
+    computed: {
+      ...mapState([
+        'reloadReocrd',
+      ])
+    },
     beforeMount() {
-      this.$axios.get('/api/fetch')
-        .then(res => {
-          let data = res.data
-          switch(data.status) {
-            case 'ok':
-              this.list = data.message
-              break
-            case 'err':
-              this.$store.commit('alert', data.message)
-              break
-          }
-        })
+      this.fetchData()
+    },
+    methods: {
+      fetchData() {
+        this.$axios.get('/api/fetch')
+          .then(res => {
+            let data = res.data
+            switch(data.status) {
+              case 'ok':
+                this.list = data.message
+                break
+              case 'err':
+                this.$store.commit('alert', data.message)
+                break
+            }
+          })
+      }
+    },
+    watch: {
+      reloadReocrd() {
+        console.log(111)
+        this.fetchData()
+      }
     }
   }
 </script>

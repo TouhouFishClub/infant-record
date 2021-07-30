@@ -8,7 +8,10 @@ export default new Vuex.Store({
     isDark: false,
     snackbar: false,
     msg: '未知错误',
-
+    editType: 0, //0: 新增，1：更改
+    editInfos: {},
+    editDialog: false,
+    reloadReocrd: 0
   },
   mutations: {
     tapTheme(state) {
@@ -20,6 +23,27 @@ export default new Vuex.Store({
     },
     closeAlert(state) {
       state.snackbar = false
+    },
+    addNewRecord(state) {
+      state.editType = 0
+      state.editInfos = {}
+      state.editDialog = true
+      console.log('add new record')
+    },
+    editRecord(state, infos) {
+      state.editType = 1
+      state.editInfos = infos
+      state.editDialog = true
+    },
+    closeEdit(state) {
+      state.editInfos = {}
+      state.editDialog = false
+    },
+    saveEdit(state) {
+      console.log(state.editInfos)
+    },
+    reloadReocrd(state) {
+      state.reloadReocrd = Date.now()
     }
   },
   actions: {

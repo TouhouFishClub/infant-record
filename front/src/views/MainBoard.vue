@@ -18,7 +18,16 @@
 
       <v-tooltip left>
         <template v-slot:activator="{ on }">
-          <v-btn icon target="_blank" v-on="on" @click="changeDarkTheme">
+          <v-btn icon target="_blank" v-on="on" @click="$store.commit('addNewRecord')">
+            <v-icon>mdi-clipboard-edit-outline</v-icon>
+          </v-btn>
+        </template>
+        <span>添加记录</span>
+      </v-tooltip>
+
+      <v-tooltip left>
+        <template v-slot:activator="{ on }">
+          <v-btn icon target="_blank" v-on="on" @click="$store.commit('tapTheme')">
             <v-icon>{{$store.state.isDark ? 'mdi-weather-night' : 'mdi-white-balance-sunny'}}</v-icon>
           </v-btn>
         </template>
@@ -32,20 +41,21 @@
     <v-footer app :dark="$store.state.isDark">
       copyright
     </v-footer>
+
+    <EditCard/>
   </v-app>
 </template>
 
 <script>
+  import EditCard from "../components/EditCard";
   export default {
     name: "MainBoard",
     data: () => ({
       drawer: false,
     }),
-    methods: {
-      changeDarkTheme() {
-        this.$store.commit('tapTheme')
-      }
-    },
+    components: {
+      EditCard
+    }
   }
 </script>
 

@@ -69,9 +69,9 @@ router.get('/fetch', async (req, res) => {
 router.post('/update', async (req, res) => {
 	let data = req.body
 	if(!data._id) {
+		await client.db('db_baby').collection('cl_baby_info').save(data)
 		res.send({
-			status: 'err',
-			message: '没有id'
+			status: 'ok'
 		})
 		return
 	}

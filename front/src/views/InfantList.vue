@@ -2,7 +2,7 @@
   <div class="infant-list">
     <v-data-table
       :headers="headers"
-      :items="datas"
+      :items="list"
       sort-by="calories"
       class="elevation-1"
       :dark="$store.state.isDark"
@@ -48,7 +48,11 @@
         { text: '操作', value: 'actions', sortable: false },
       ],
     }),
-
+    props: {
+      list: {
+        type: Array
+      }
+    },
     watch: {
       dialog (val) {
         val || this.close()

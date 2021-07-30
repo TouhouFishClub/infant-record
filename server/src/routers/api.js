@@ -40,14 +40,6 @@ router.post('/test', async (req, res) => {
  * @apiGroup 通用接口/获取数据
  */
 router.get('/fetch', async (req, res) => {
-	let { _id } = req.query
-	if(!_id) {
-		res.send({
-			status: 'err',
-			message: '没有id'
-		})
-		return
-	}
 
 	let data = await client.db('db_baby').collection('cl_baby_info').find({}).toArray()
 

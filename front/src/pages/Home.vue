@@ -5,7 +5,9 @@
       dark: $store.state.isDark
     }"
   >
-    <InfantList/>
+    <InfantList
+      :list="list"
+    />
   </div>
 </template>
 
@@ -13,6 +15,11 @@
   import InfantList from "@/views/InfantList";
   export default {
     name: 'Home',
+    data() {
+      return {
+        list: []
+      }
+    },
     props: {
       drawer: {
         type: Boolean
@@ -22,7 +29,18 @@
       InfantList
     },
     beforeMount() {
-      this.$axios.get('/api')
+      this.$axios.get('/api/fetch')
+        .then(res => {
+          let data = res.data
+          switch(data.status) {
+            case 'ok':
+              this.list = data.message
+              break
+            case 'err':
+              this.$store.commit('alert', data.message)
+              break
+          }
+        })
     }
   }
 </script>

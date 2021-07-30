@@ -10,7 +10,6 @@
       :rules="nameRules"
       label="账号"
       required
-      clearable
     ></v-text-field>
     <v-text-field
       v-model="password"
@@ -19,7 +18,6 @@
       label="密码"
       type="password"
       required
-      clearable
     ></v-text-field>
     <div class="captcha-container">
       <v-text-field
@@ -28,7 +26,6 @@
         :rules="captchaRules"
         label="验证码"
         required
-        clearable
       ></v-text-field>
       <img class="captcha-code" :src="`/p/captcha?_t=${now}`" @click="now = Date.now()">
     </div>

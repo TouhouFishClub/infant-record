@@ -61,7 +61,6 @@
 </template>
 
 <script>
-  import Logo from "@/components/Logo";
   export default {
     name: "Register",
     data: () => ({
@@ -88,12 +87,6 @@
         v => (v && v.length <= 4) || '密码需要小于4个字符',
       ],
     }),
-    components: {
-      Logo
-    },
-    mounted() {
-      this.$refs.logo.run()
-    },
     methods: {
       validate () {
         if(this.$refs.form.validate()) {

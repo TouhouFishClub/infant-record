@@ -27,8 +27,8 @@ app.use(session({
 
 // app.use(sessionManager)
 
-app.use('/media', express.static(path.join(__dirname, 'media'), {maxage: '2h'}))
-app.use('/customImg', express.static(path.join(__dirname, 'customImg'), {maxage: '2h'}))
+// app.use('/media', express.static(path.join(__dirname, 'media'), {maxage: '2h'}))
+
 app.use('/api', checkSession)
 
 app.use('/doc', express.static(path.join(__dirname, '..', 'doc')))

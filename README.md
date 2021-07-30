@@ -8,3 +8,8 @@ npm run build
 ```bash
 
 ```
+# creates a documentation from API
+```bash
+npm install -g apidoc
+apidoc -i src/ -o doc/
+```

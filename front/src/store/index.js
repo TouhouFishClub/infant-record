@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isDark: false,
-    snackbar: false,
+    snackbar: {
+      isShow: false
+    },
     msg: '未知错误',
     editType: 0, //0: 新增，1：更改
     editInfos: {},
@@ -18,11 +20,11 @@ export default new Vuex.Store({
       state.isDark = !state.isDark
     },
     alert(state, msg) {
-      state.snackbar = true
+      state.snackbar.isShow = true
       state.msg = msg
     },
     closeAlert(state) {
-      state.snackbar = false
+      state.snackbar.isShow = false
     },
     addNewRecord(state) {
       state.editType = 0

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-snackbar
-      v-model="snackbar"
+      v-model="snackbar.isShow"
       top
     >
       {{ $store.state.msg }}

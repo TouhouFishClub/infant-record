@@ -23,14 +23,43 @@
         </v-icon>
       </template>
       <template v-slot:no-data>
-        <v-btn
-          color="primary"
-          @click="initialize"
-        >
-          Reset
-        </v-btn>
+        没有数据
       </template>
     </v-data-table>
+    <v-dialog
+      v-model="deleteDialog"
+      width="500"
+    >
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          删除确认
+        </v-card-title>
+
+        <v-card-text>
+          删除数据后无法恢复，是否删除
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            取消
+          </v-btn>
+          <v-btn
+            color="primary"
+            text
+            @click="enterDelete"
+          >
+            确定
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -38,6 +67,8 @@
   export default {
     name: "InfantList",
     data: () => ({
+      deleteTmp: {},
+      deleteDialog: false,
       datas: [],
       headers: [
         { text: '时间', sortable: false, value: 'ts'},
@@ -84,7 +115,24 @@
 
       deleteItem (item) {
         console.log(item)
+        this.deleteTmp = item
+        this.deleteDialog = true
       },
+      enterDelete() {
+        this.$axios.post(`/api/remove`, this.deleteTmp)
+          .then(res => {
+            let data = res.data
+            switch(data.status) {
+              case 'ok':
+                this.deleteDialog = false
+                this.$store.commit('alert', '删除成功')
+                this.$store.commit('reloadReocrd')
+                break
+              case 'err':
+                break
+            }
+          })
+      }
     },
   }
 </script>

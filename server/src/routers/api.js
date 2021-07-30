@@ -88,7 +88,7 @@ router.post('/update', async (req, res) => {
 })
 
 /**
- * @api {post} /api/add 3. 增加信息
+ * @api {post} /api/add 3. 增加信息 [废弃，使用update更新]
  * @apiVersion 0.0.1
  * @apiName 3. 增加信息
  * @apiGroup 通用接口/修改数据
@@ -112,7 +112,7 @@ router.post('/add', async (req, res) => {
 })
 
 /**
- * @api {get} /api/remove 4. 删除信息
+ * @api {post} /api/remove 4. 删除信息
  * @apiVersion 0.0.1
  * @apiName 4. 删除信息
  * @apiGroup 通用接口/修改数据
@@ -121,7 +121,7 @@ router.post('/add', async (req, res) => {
  *
  */
 router.post('/remove', async (req, res) => {
-	let { _id } = req.query
+	let { _id } = req.body
 	if(!_id) {
 		res.send({
 			status: 'err',
@@ -131,7 +131,7 @@ router.post('/remove', async (req, res) => {
 	}
 	let data = req.body
 	delete data._id
-	await client.db('db_baby').collection('cl_baby_info').remove({'_id': ObjectId.Parse(_id)})
+	await client.db('db_baby').collection('cl_baby_info').remove({'_id': ObjectId(_id)})
 	res.send({
 		status: 'ok'
 	})

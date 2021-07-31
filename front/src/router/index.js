@@ -12,6 +12,8 @@ const routes = [
   ]},
   { path: '/main', name: 'MainBoard', component: () => import('@/views/MainBoard.vue'), redirect: '/home', children: [
       { path: '/home', name: 'Home', component: () => import('@/pages/Home.vue') },
+      { path: '/chart', name: 'Home', component: () => import('@/pages/Chart.vue') },
+      { path: '/setting', name: 'Home', component: () => import('@/pages/Setting.vue') },
   ]},
 ]
 

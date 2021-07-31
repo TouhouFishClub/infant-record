@@ -15,8 +15,9 @@
           size="64"
         ></v-avatar>
 
-        <div>欢迎</div>
+        <div>欢迎，{{$store.state.account.username}}</div>
       </v-sheet>
+      <NavigationList/>
 
     </v-navigation-drawer>
 
@@ -57,14 +58,19 @@
 </template>
 
 <script>
-  import EditCard from "../components/EditCard";
+  import EditCard from "@/components/EditCard";
+  import NavigationList from "@/views/NavigationList";
   export default {
     name: "MainBoard",
     data: () => ({
       drawer: false,
     }),
     components: {
-      EditCard
+      EditCard,
+      NavigationList,
+    },
+    beforeMount() {
+      this.$store.commit('updateAccount')
     }
   }
 </script>

@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isDark: false,
+    account: {},
     snackbar: {
       isShow: false
     },
@@ -48,6 +49,15 @@ export default new Vuex.Store({
     },
     reloadReocrd(state) {
       state.reloadReocrd = Date.now()
+    },
+    updateAccount(state) {
+      window.axios.get('/api/user')
+        .then(res => {
+          if(res.data.status == 'ok') {
+            console.log(res.data.message)
+            state.account = res.data.message
+          }
+        })
     }
   },
   actions: {

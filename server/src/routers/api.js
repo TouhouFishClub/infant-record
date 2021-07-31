@@ -138,6 +138,21 @@ router.post('/remove', async (req, res) => {
 	})
 })
 
+/**
+ * @api {get} /api/user 5. 获取用户信息
+ * @apiVersion 0.0.1
+ * @apiName 5. 获取用户信息
+ * @apiGroup 通用接口/修改数据
+ *
+ */
+router.get('/user', (req, res) => {
+	let out = Object.assign({}, req.session.user)
+	delete out.password
+	res.send({
+		message: out,
+		status: 'ok'
+	})
+})
 
 
 module.exports = router;

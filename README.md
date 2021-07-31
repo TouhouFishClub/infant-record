@@ -6,7 +6,9 @@ npm run build
 ```
 # server
 ```bash
-
+cd server
+npm i
+node src/server.js
 ```
 # creates a documentation from API
 ```bash

@@ -70,7 +70,19 @@
       NavigationList,
     },
     beforeMount() {
+      if(sessionStorage.getItem('openDrawer')) {
+        this.drawer = true
+      }
       this.$store.commit('updateAccount')
+    },
+    watch: {
+      drawer(val) {
+        if(val) {
+          sessionStorage.setItem('openDrawer', true)
+        } else {
+          sessionStorage.removeItem('openDrawer')
+        }
+      }
     }
   }
 </script>

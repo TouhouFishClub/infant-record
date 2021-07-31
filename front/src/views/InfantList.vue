@@ -1,11 +1,36 @@
 <template>
   <div class="infant-list">
+    <v-card :dark="$store.state.isDark" class="pagenation-card top">
+      <v-card-text>
+        <div class="pagenation-container">
+          <v-pagination
+            v-model="page"
+            :length="pageCount"
+            class="main-pagenation"
+          ></v-pagination>
+          <v-text-field
+            class="pagenation-setting"
+            :value="itemsPerPage"
+            label="每页显示数量"
+            type="number"
+            min="-1"
+            max="15"
+            @input="itemsPerPage = parseInt($event, 10)"
+          ></v-text-field>
+        </div>
+      </v-card-text>
+    </v-card>
     <v-data-table
       :headers="headers"
       :items="list"
       sort-by="calories"
       class="elevation-1"
       :dark="$store.state.isDark"
+
+      hide-default-footer
+      :page.sync="page"
+      :items-per-page="itemsPerPage"
+      @page-count="pageCount = $event"
     >
 
       <template v-slot:item.ts="{ item }">
@@ -31,6 +56,28 @@
         没有数据
       </template>
     </v-data-table>
+
+    <v-card :dark="$store.state.isDark" class="pagenation-card bottom">
+      <v-card-text>
+        <div class="pagenation-container">
+          <v-pagination
+            v-model="page"
+            :length="pageCount"
+            class="main-pagenation"
+          ></v-pagination>
+          <v-text-field
+            class="pagenation-setting"
+            :value="itemsPerPage"
+            label="每页显示数量"
+            type="number"
+            min="-1"
+            max="15"
+            @input="itemsPerPage = parseInt($event, 10)"
+          ></v-text-field>
+        </div>
+      </v-card-text>
+    </v-card>
+
     <v-dialog
       v-model="deleteDialog"
       width="500"
@@ -76,6 +123,11 @@
     data: () => ({
       deleteTmp: {},
       deleteDialog: false,
+
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 10,
+
       datas: [],
       headers: [
         { text: '时间', value: 'ts'},
@@ -150,5 +202,26 @@
 </script>
 
 <style lang="scss" scoped>
+  .pagenation-card {
+    &.top {
+      margin-bottom: 10px;
+    }
+    &.bottom {
+      margin-top: 10px;
+    }
+    .pagenation-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .main-pagenation {
+        flex-grow: 1;
+        text-align: center;
+      }
+      .pagenation-setting {
+        width: 100px;
+        flex-shrink: 0;
+      }
+    }
+  }
 
 </style>

@@ -34,7 +34,7 @@
               </template>
               <v-date-picker
                 v-model="date"
-                @input="menu2 = false"
+                @input="menu = false"
               ></v-date-picker>
             </v-menu>
 
@@ -59,6 +59,11 @@
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       menu: false,
     }),
+    beforeMount() {
+      if(this.$store.state.account.birth) {
+        this.date = (new Date(this.$store.state.account.birth - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
+      }
+    },
     methods: {
       tapEnter() {
         this.$axios.post(`/api/setUserInfo`,{

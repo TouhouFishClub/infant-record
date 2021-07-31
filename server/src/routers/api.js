@@ -167,7 +167,7 @@ router.post('/setUserInfo', async (req, res) => {
 		{'_id': ObjectId(_id)},
 		{'$set': data}
 	)
-	req.session.user = Object.assign(data, req.session.user)
+	req.session.user = Object.assign(req.session.user, data)
 	res.send({
 		status: 'ok'
 	})

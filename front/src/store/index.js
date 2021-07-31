@@ -45,9 +45,6 @@ export default new Vuex.Store({
       state.editInfos = {}
       state.editDialog = false
     },
-    saveEdit(state) {
-      console.log(state.editInfos)
-    },
     reloadReocrd(state) {
       state.reloadReocrd = Date.now()
     },

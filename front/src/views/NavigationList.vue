@@ -48,7 +48,12 @@
           this.$router.replace(item.route)
         }
       }
-    }
+    },
+    watch:{
+      $route(to,from){
+        this.selectedItem = this.items.findIndex(x => x.route == this.$route.path)
+      }
+    },
   }
 </script>
 

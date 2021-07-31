@@ -10,6 +10,9 @@
 
       <template v-slot:item.ts="{ item }">
         {{ item.ts | timeFmt }}
+        <span v-if="$store.state.account.birth">
+          (第 {{~~((item.ts - $store.state.account.birth) / 24 / 60 / 60 / 1000)}} 天)
+        </span>
       </template>
       <template v-slot:item.actions="{ item }">
         <v-icon

@@ -154,5 +154,24 @@ router.get('/user', (req, res) => {
 	})
 })
 
+/**
+ * @api {post} /api/setUserInfo 6. 设置用户信息
+ * @apiVersion 0.0.1
+ * @apiName 6. 设置用户信息
+ * @apiGroup 通用接口/修改数据
+ *
+ */
+router.post('/setUserInfo', async (req, res) => {
+	let { _id } = req.session.user, data = req.body
+	await client.db('db_baby').collection('cl_user').updateOne(
+		{'_id': ObjectId(_id)},
+		{'$set': data}
+	)
+	req.session.user = Object.assign(data, req.session.user)
+	res.send({
+		status: 'ok'
+	})
+})
+
 
 module.exports = router;

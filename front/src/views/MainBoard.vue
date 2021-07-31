@@ -16,7 +16,7 @@
         ></v-avatar>
 
         <div>欢迎，{{$store.state.account.username}}</div>
-        <div>{{$store.state.account.birth}}</div>
+<!--        <div>{{$store.state.account.birth}}</div>-->
       </v-sheet>
       <NavigationList/>
 

@@ -31,6 +31,8 @@
       :page.sync="page"
       :items-per-page="itemsPerPage"
       @page-count="pageCount = $event"
+
+      mobile-breakpoint="100"
     >
 
       <template v-slot:item.ts="{ item }">
@@ -138,6 +140,17 @@
         { text: '操作', value: 'actions', sortable: false },
       ],
     }),
+    // computed: {
+    //   height () {
+    //     switch (this.$vuetify.breakpoint.name) {
+    //       case 'xs': return 220
+    //       case 'sm': return 400
+    //       case 'md': return 500
+    //       case 'lg': return 600
+    //       case 'xl': return 800
+    //     }
+    //   },
+    // },
     props: {
       list: {
         type: Array
@@ -219,9 +232,18 @@
       }
       .pagenation-setting {
         width: 100px;
+        min-width: 100px;
+        max-width: 100px;
         flex-shrink: 0;
       }
     }
+  }
+
+</style>
+<style lang="scss">
+  //覆盖vuetify样式
+  .v-data-table .text-start {
+    white-space: nowrap;
   }
 
 </style>

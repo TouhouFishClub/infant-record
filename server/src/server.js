@@ -32,7 +32,7 @@ app.use('/api', checkSession)
 
 app.use('/doc', express.static(path.join(__dirname, '..', 'doc')))
 
-app.use('/s', express.static(path.join(__dirname, '..', 'front', 'dist')))
+app.use('/s', express.static(path.join(__dirname, '..', '..', 'front', 'dist')))
 
 app.get('/p/captcha', (req, res) => {
 	let captcha = svgCaptcha.create();

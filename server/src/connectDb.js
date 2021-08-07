@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient
-const MONGO_URL = 'mongodb://127.0.0.1:27017/'
+const MONGO_URL = 'mongodb://127.0.0.1:27050/'
 
 let client
 

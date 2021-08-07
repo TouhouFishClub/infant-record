@@ -73,19 +73,7 @@ router.post('/update', async (req, res) => {
 	data._id=data.ts;
 	data.time = new Date(data.ts);
 	console.log(data);
-	if(!data._id) {
-		await client.db('db_baby').collection('cl_baby_info').save(data)
-		res.send({
-			status: 'ok'
-		})
-		return
-	}
-	let _id = ObjectId(data._id)
-	delete data._id
-	await client.db('db_baby').collection('cl_baby_info').updateOne(
-		{'_id': _id},
-		{'$set': data}
-	)
+	await client.db('db_baby').collection('cl_baby_info').save(data)
 	res.send({
 		status: 'ok'
 	})

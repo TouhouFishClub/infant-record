@@ -63,7 +63,7 @@ const loginHandler = async (req, res, params) => {
 			setSession(data._id, data, req)
 			res.send({
 				status: 'ok',
-				message: '登录成功'
+				message: ''
 			})
 		} else {
 			res.send({

@@ -54,7 +54,7 @@ router.get('/fetch', async (req, res) => {
 
 	res.send({
 		status: 'ok',
-		message: data.reverse(),
+		message: data,
 	})
 })
 

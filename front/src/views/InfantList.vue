@@ -14,8 +14,8 @@
             label="每页显示数量"
             type="number"
             min="-1"
-            max="15"
-            @input="itemsPerPage = parseInt($event, 10)"
+            max="50"
+            @input="itemsPerPage = parseInt($event, 50)"
           ></v-text-field>
         </div>
       </v-card-text>
@@ -73,8 +73,8 @@
             label="每页显示数量"
             type="number"
             min="-1"
-            max="15"
-            @input="itemsPerPage = parseInt($event, 10)"
+            max="50"
+            @input="itemsPerPage = parseInt($event, 50)"
           ></v-text-field>
         </div>
       </v-card-text>

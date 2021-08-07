@@ -43,13 +43,7 @@ const loginHandler = async (req, res, params) => {
 		})
 		return
 	}
-	if(!captcha) {
-		res.send({
-			status: 'err',
-			message: '需要验证码'
-		})
-		return
-	}
+
 
 
 	/*

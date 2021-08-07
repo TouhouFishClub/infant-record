@@ -62,8 +62,7 @@ const loginHandler = async (req, res, params) => {
 		if(data.password == crypto.createHash('md5').update(password).digest('hex').toLowerCase()){
 			setSession(data._id, data, req)
 			res.send({
-				status: 'ok',
-				message: ''
+				status: 'ok'
 			})
 		} else {
 			res.send({

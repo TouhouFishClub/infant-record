@@ -19,7 +19,7 @@
       type="password"
       required
     ></v-text-field>
-    <div class="captcha-container">
+    <div class="captcha-container" style="display:none">
       <v-text-field
         v-model="captcha"
         :counter="4"
@@ -71,10 +71,10 @@
         v => (v && v.length <= 20) || '密码需要小于20个字符',
       ],
       captcha: '',
-      captchaRules: [
-        v => !!v || '必须输入验证码',
-        v => (v && v.length <= 4) || '密码需要小于4个字符',
-      ],
+      //captchaRules: [
+      //  v => !!v || '必须输入验证码',
+      //  v => (v && v.length <= 4) || '密码需要小于4个字符',
+      //],
     }),
     methods: {
       validate () {

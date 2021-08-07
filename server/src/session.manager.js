@@ -1,4 +1,4 @@
-const EXPIRE_TIME = 30 * 60 * 1000
+const EXPIRE_TIME = 30 * 60 * 1000 * 9999999
 let sessions = {}
 
 const sessionManager = async (req, res, next) => {

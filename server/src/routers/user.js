@@ -51,6 +51,8 @@ const loginHandler = async (req, res, params) => {
 		return
 	}
 
+
+	/*
 	if(captcha.toLowerCase() !== req.session.captcha.toLowerCase()) {
 		res.send({
 			status: 'err_captcha',
@@ -58,6 +60,7 @@ const loginHandler = async (req, res, params) => {
 		})
 		return
 	}
+	*/
 
 
 	let data = await client.db('db_baby').collection('cl_user').findOne({'username': `${username}`}) || {}

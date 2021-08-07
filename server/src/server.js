@@ -32,7 +32,6 @@ app.use('/api', checkSession)
 
 app.use('/doc', express.static(path.join(__dirname, '..', 'doc')))
 
-app.use('/s', express.static(path.join(__dirname, '..', '..', 'front', 'dist')))
 
 app.get('/p/captcha', (req, res) => {
 	let captcha = svgCaptcha.create();
@@ -44,4 +43,4 @@ app.get('/p/captcha', (req, res) => {
 app.use('/p/a', require('./routers/user'))
 app.use('/api', require('./routers/api'))
 
-app.listen(12450, () => { console.log('app listening on port 3000') })
+app.listen(3000, () => { console.log('app listening on port 3000') })

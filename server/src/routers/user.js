@@ -60,7 +60,7 @@ const loginHandler = async (req, res, params) => {
 	let data = await client.db('db_baby').collection('cl_user').findOne({'username': `${username}`}) || {}
 	if(data.username) {
 		if(data.password == crypto.createHash('md5').update(password).digest('hex').toLowerCase()){
-			setSession(data._id, data, req)
+			setSession(data._id+Math.random(), data, req)
 			res.send({
 				status: 'ok'
 			})

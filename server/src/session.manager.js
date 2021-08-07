@@ -34,8 +34,7 @@ const checkSession = (req, res, next) => {
 			next()
 		}
 	} else {
-		sessions[req.session.sid].expires = Date.now() + EXPIRE_TIME
-		next()
+		res.status(401).send('Unauthorized');
 	}
 }
 

@@ -72,6 +72,7 @@ router.post('/update', async (req, res) => {
 	data.username = req.session.user.username
 	data._id=data.ts;
 	data.time = new Date(data.ts);
+	console.log(data);
 	if(!data._id) {
 		await client.db('db_baby').collection('cl_baby_info').save(data)
 		res.send({

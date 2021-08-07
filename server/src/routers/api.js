@@ -123,7 +123,7 @@ router.post('/remove', async (req, res) => {
 	}
 	let data = req.body
 	delete data._id
-	await client.db('db_baby').collection('cl_baby_info').remove({'_id': ObjectId(_id)})
+	await client.db('db_baby').collection('cl_baby_info').remove({'_id': _id})
 	res.send({
 		status: 'ok'
 	})

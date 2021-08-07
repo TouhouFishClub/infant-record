@@ -128,7 +128,7 @@
 
       page: 1,
       pageCount: 0,
-      itemsPerPage: 10,
+      itemsPerPage: 50,
 
       datas: [],
       headers: [

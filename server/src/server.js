@@ -95,6 +95,9 @@ app.get('/image',function(req,res){
   }
 });
 
+app.get('/test',function(req,res){
+  res.send('ok');
+})
 
 
 
@@ -106,4 +109,4 @@ app.get('/image',function(req,res){
 app.use('/p/a', require('./routers/user'))
 app.use('/api', require('./routers/api'))
 
-app.listen(3000, () => { console.log('app listening on port 3000') })
+app.listen(3001, () => { console.log('app listening on port 3000') })

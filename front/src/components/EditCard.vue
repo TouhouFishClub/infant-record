@@ -64,6 +64,24 @@
                 v-model="editInfos.remark"
                 required
               ></v-text-field>
+
+<div class="send-pic">
+<v-btn icon @click="selectImage">
+<v-icon>mdi mdi-camera-image</v-icon>
+</v-btn>
+<input
+   type="file"
+   name="file"
+   accept="image/png,image/gif,image/jpg,image/jpeg"
+   ref="fileInput"
+   @change="updateImage"
+   style="width: 100px; display: none;"
+>
+</div>
+
+
+
+
             </v-col>
           </v-row>
         </v-container>
@@ -103,7 +121,44 @@
       ])
     },
     methods: {
+
+deleteFile() {
+this.$refs.fileInput.value = ''
+this.imagePre = ''
+this.$store.commit('addImage', false)
+},
+selectImage() {
+  console.log(111)
+this.$refs.fileInput.click()
+},
+updateImage() {
+let input = this.$refs.fileInput
+let file = input.files[0]
+  var data = new FormData();
+  data.append("i",file);
+  this.$axios.post('http://localhost:3000/upload_img', data)
+.then(res => {
+let data = res.data
+console.log(data)
+this.editInfos.extra=(this.editInfos.extra==undefined?'':(this.editInfos.extra+",")) + data.filename
+console.log(this.editInfos.extra)
+})
+
+
+},
+
+
+
+
+
       saveEdit() {
+        if(this.editInfos.extra){
+          if(this.editInfos.remark){
+            this.editInfos.remark = this.editInfos.remark + '[img:'+this.editInfos.extra+']'
+          }else{
+            this.editInfos.remark = '[img:'+this.editInfos.extra+']'
+          }
+        }
         this.$axios.post('/api/update', this.editInfos)
           .then(res => {
             let data = res.data

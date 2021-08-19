@@ -65,6 +65,7 @@
                 required
               ></v-text-field>
 
+
 <div class="send-pic">
 <v-btn icon @click="selectImage">
 <v-icon>mdi mdi-camera-image</v-icon>
@@ -78,6 +79,9 @@
    style="width: 100px; display: none;"
 >
 </div>
+
+
+
 
 
 
@@ -131,6 +135,9 @@ selectImage() {
   console.log(111)
 this.$refs.fileInput.click()
 },
+clearextra(){
+  this.editInfos.extra=undefined
+},
 updateImage() {
 let input = this.$refs.fileInput
 let file = input.files[0]
@@ -140,9 +147,12 @@ let file = input.files[0]
 .then(res => {
 let data = res.data
 console.log(data)
+this.editInfos.remark = this.editInfos.remark + '['+data.filename+']'
 this.editInfos.extra=(this.editInfos.extra==undefined?'':(this.editInfos.extra+",")) + data.filename
 console.log(this.editInfos.extra)
 })
+
+
 
 
 },
@@ -152,7 +162,7 @@ console.log(this.editInfos.extra)
 
 
       saveEdit() {
-        if(this.editInfos.extra){
+        if(false){
           if(this.editInfos.remark){
             this.editInfos.remark = this.editInfos.remark + '[img:'+this.editInfos.extra+']'
           }else{

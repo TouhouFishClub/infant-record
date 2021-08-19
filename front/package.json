@@ -10,6 +10,7 @@
     "core-js": "^3.6.5",
     "exif-js": "^2.3.0",
     "lazy-line-painter": "^1.9.6",
+    "v-viewer": "^1.5.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuetify": "^2.4.0",

@@ -190,6 +190,8 @@
         if(val) {
           if(this.editInfos.imgs) {
             this.imgs = this.editInfos.imgs.concat([])
+          } else {
+            this.imgs = []
           }
         } else {
           this.imgs = []

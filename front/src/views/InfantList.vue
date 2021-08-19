@@ -42,6 +42,17 @@
         </span>
       </template>
 
+      <template v-slot:item.imgs="{ item }">
+        <div class="image-container">
+          <div class="image-item" v-for="img in item.imgs" @click.stop="showImage(img)">
+            <viewer :images="[`/api/image?d=${img.filename}`]">
+              <img :src="`/api/image?d=${img.filename}`">
+            </viewer>
+<!--            <img :src="`/api/image?d=${img.filename}`"/>-->
+          </div>
+        </div>
+      </template>
+
 
       <template v-slot:item.actions="{ item }">
         <v-icon
@@ -179,6 +190,9 @@
       }
     },
     methods: {
+      showImage(img) {
+        console.log(img)
+      },
       initialize () {
         this.datas = [{
           id: 1,
@@ -238,6 +252,30 @@
         min-width: 100px;
         max-width: 100px;
         flex-shrink: 0;
+      }
+    }
+  }
+  .image-container {
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    .image-item {
+      width: 60px;
+      height: 60px;
+      border: 1px solid #ddd;
+      position: relative;
+      margin-left: 10px;
+      img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
       }
     }
   }

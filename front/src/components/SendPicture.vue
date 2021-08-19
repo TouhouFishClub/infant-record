@@ -156,6 +156,8 @@
         //旋转角度以弧度值为参数
         let degree = step * 90 * Math.PI / 180;
         let ctx = canvas.getContext('2d');
+        // console.log('=====step=====')
+        // console.log(step)
         switch (step) {
           case 0:
             canvas.width = width;
@@ -201,9 +203,10 @@
             height /= ratio
           }
           // alert(Orientation)
-          console.log('======= Orientation =======')
-          console.log(Orientation)
-          if(Orientation && Orientation != "" && Orientation != 1){
+          // console.log('======= Orientation =======')
+          // console.log(Orientation)
+          // 暂时屏蔽非ios图片旋转（至少小米手机Orientation不对）
+          if(Orientation && Orientation != "" && Orientation != 1 && /iphone|ipod|ipad|ios/.test(navigator.userAgent.toLowerCase())){
             /* 根据压缩的图片创建新的image */
             switch(Orientation){
               case 6://需要顺时针（向左）90度旋转

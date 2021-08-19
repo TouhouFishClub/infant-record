@@ -34,6 +34,17 @@
         imagePre: ''
       }
     },
+    props: {
+      /*
+      * uploadType:
+      * [ normal ] 组件显示图片，并通过store传参
+      * [ emit   ] 将图片以数据格式传输给父组件
+      * */
+      uploadType: {
+        type: String,
+        default: 'normal'
+      },
+    },
     computed: {
       ...mapState([
         'actionGroupId',
@@ -66,19 +77,27 @@
                 reader2.readAsDataURL(fileOfBlob)
                 reader2.onload = () => {
                   this.imagePre = reader2.result
-                  this.$store.commit('addImage', true)
-                  this.$store.commit('changeImage', fileOfBlob)
+                  this.execImage(fileOfBlob)
                 }
               });
             } else {
               this.imagePre = reader.result
-              this.$store.commit('addImage', true)
-              this.$store.commit('changeImage', this.$refs.fileInput.files[0])
+              this.execImage(this.$refs.fileInput.files[0])
             }
           }
         })
       },
-
+      execImage(fileData) {
+        switch(this.uploadType) {
+          case 'normal':
+            this.$store.commit('addImage', true)
+            this.$store.commit('changeImage', fileData)
+            break;
+          case 'emit':
+            this.$emit('fileData', fileData)
+            break;
+        }
+      },
       rotateImg (img, direction,canvas,ratio, level) {
         //最小与最大旋转方向，图片旋转4次后回到原方向
         const min_step = 0;
@@ -216,7 +235,7 @@
   }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
   .send-pic {
     padding: 0 10px;
     position: relative;

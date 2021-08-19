@@ -5,13 +5,13 @@
           class="mx-auto my-auto"
           min-width="300"
       >
-        <Logo
-            ref="logo"
-            :width="100"
-            :height="100"
-            :strokeWidth="20"
-            class="logo"
-        />
+<!--        <Logo-->
+<!--            ref="logo"-->
+<!--            :width="100"-->
+<!--            :height="100"-->
+<!--            :strokeWidth="20"-->
+<!--            class="logo"-->
+<!--        />-->
         <v-card-text>
           <router-view/>
         </v-card-text>
@@ -31,7 +31,10 @@
       Logo
     },
     mounted() {
-      this.$refs.logo.run()
+      // 关闭一下编辑框
+      this.$store.commit('closeEdit')
+
+      // this.$refs.logo.run()
     },
   }
 </script>

@@ -20,7 +20,6 @@
         </div>
       </v-card-text>
     </v-card>
-<div><img :src=imgsrc style="max-width:600px"></div>
     <v-data-table
       :headers="headers"
       :items="list"
@@ -42,15 +41,6 @@
           (第 {{Math.round((new Date(item.ts).getTime() - $store.state.account.birth) / 24 / 60 / 60 / 1000)}} 天)
         </span>
       </template>
-
-
-<template v-slot:item.remark="{ item }">
-<div>
-<v-btn icon @click="showimg(item.remark)">
-<v-icon>mdi mdi-camera-image</v-icon>
-</v-btn>
-</div>
-</template>
 
 
       <template v-slot:item.actions="{ item }">
@@ -201,27 +191,6 @@
 
       editItem (item) {
         this.$store.commit('editRecord', item)
-      },
-      showimg(x){
-        var txt = ''
-        var img = '';
-        var n = 1;
-        for(var i=0;i<x.length;i++){
-          if(x[i]=='['){
-            n=2;
-          }else if(x[i]==']'){
-            n=1;
-          }else if(n==1){
-            txt = txt + x[i];
-          }else if(n==2){
-            img = img + x[i];
-          }
-        }
-        this.imgsrc='/image?d='+img;
-
-
-
-
       },
       deleteItem (item) {
         console.log(item)

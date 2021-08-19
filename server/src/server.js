@@ -40,61 +40,6 @@ app.get('/p/captcha', (req, res) => {
 	res.status(200).send(captcha.data);
 });
 
-var UPLOAD_TMP_URL = "./tmp_file/";
-var UPLOAD_URL = "./file/"
-var multer = require('multer');
-var fs = require('fs');
-var upload = multer({dest: UPLOAD_TMP_URL});
-
-app.post('/upload_img', upload.any(), (req, res, next) => {
-  res.set("Access-Control-Allow-Origin", "*");
-// console.log('============')
-// console.log(req.body)
-// console.log(req.files[0]);  // 上传的文件信息
-var now = new Date().getTime();
-var des_file = UPLOAD_URL + now+".jpg";
-console.log(des_file);
-fs.readFile( req.files[0].path, (err, data) => {
-  fs.writeFile(des_file, data, (err) => {
-  if( err ){
-    console.log('===== UPLOAD FILE ERROR =====')
-    console.log( err );
-  }else{
-    response = {
-      message:'File uploaded successfully',
-      filename:now+".jpg"
-    };
-console.log( response );
-res.end( JSON.stringify( response ) );
-}
-})
-})
-})
-
-app.get('/image',function(req,res){
-  var querydata = req.query;
-  var url = querydata.url;
-  var imgpath = querydata.d;
-  imgpath = path.join(__dirname,"..","file",imgpath);
-
-  var bface = querydata.bface;
-  if(imgpath){
-    // var head = '../coolq-data/cq/data/image';
-    // var realpath = path.join(__dirname,head,imgpath);
-    res.sendFile(imgpath);
-  }else{
-    request({
-      url: url,
-      method: "GET"
-    }, function(error, response, body){
-      if(error&&error.code){
-        console.log('pipe error catched!')
-        console.log(error);
-      }
-    }).pipe(res);
-  }
-});
-
 app.get('/test',function(req,res){
   res.send('ok');
 })
@@ -109,4 +54,4 @@ app.get('/test',function(req,res){
 app.use('/p/a', require('./routers/user'))
 app.use('/api', require('./routers/api'))
 
-app.listen(3001, () => { console.log('app listening on port 3000') })
+app.listen(3000, () => { console.log('app listening on port 3000') })

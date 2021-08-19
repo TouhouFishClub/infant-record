@@ -64,28 +64,11 @@
                 v-model="editInfos.remark"
                 required
               ></v-text-field>
-
-
-<div class="send-pic">
-<v-btn icon @click="selectImage">
-<v-icon>mdi mdi-camera-image</v-icon>
-</v-btn>
-<input
-   type="file"
-   name="file"
-   accept="image/png,image/gif,image/jpg,image/jpeg"
-   ref="fileInput"
-   @change="updateImage"
-   style="width: 100px; display: none;"
->
-</div>
-
-
-
-
-
-
-
+            </v-col>
+            <v-col
+              cols="12"
+            >
+              <SendPicture/>
             </v-col>
           </v-row>
         </v-container>
@@ -113,11 +96,15 @@
 
 <script>
   import { mapState } from 'vuex'
+  import SendPicture from "@/components/SendPicture";
   export default {
     name: "EditCard",
     data: () => ({
       dialog: true,
     }),
+    components: {
+      SendPicture,
+    },
     computed: {
       ...mapState([
         'editDialog',
@@ -125,42 +112,6 @@
       ])
     },
     methods: {
-
-deleteFile() {
-this.$refs.fileInput.value = ''
-this.imagePre = ''
-this.$store.commit('addImage', false)
-},
-selectImage() {
-  console.log(111)
-this.$refs.fileInput.click()
-},
-clearextra(){
-  this.editInfos.extra=undefined
-},
-updateImage() {
-let input = this.$refs.fileInput
-let file = input.files[0]
-  var data = new FormData();
-  data.append("i",file);
-  this.$axios.post('http://localhost:3000/upload_img', data)
-.then(res => {
-let data = res.data
-console.log(data)
-this.editInfos.remark = this.editInfos.remark + '['+data.filename+']'
-this.editInfos.extra=(this.editInfos.extra==undefined?'':(this.editInfos.extra+",")) + data.filename
-console.log(this.editInfos.extra)
-})
-
-
-
-
-},
-
-
-
-
-
       saveEdit() {
         if(false){
           if(this.editInfos.remark){

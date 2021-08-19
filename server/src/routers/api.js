@@ -3,6 +3,7 @@ const Db = require('../connectDb')
 const router = express.Router();
 const fs = require('fs-extra')
 const path = require('path-extra')
+const url = require('url')
 const multer = require('multer')
 const ObjectId = require('mongodb').ObjectID;
 
@@ -163,6 +164,77 @@ router.post('/setUserInfo', async (req, res) => {
 		status: 'ok'
 	})
 })
+
+
+
+/**
+ * @api {post} /api/upload_img 7. 上传图片
+ * @apiVersion 0.0.1
+ * @apiName 7. 上传图片
+ * @apiGroup 通用接口/修改数据
+ *
+ */
+
+var UPLOAD_TMP_URL = path.join(__dirname, '..', '..', 'tmp_file');
+var UPLOAD_URL = path.join(__dirname, '..', '..', 'file');
+var upload = multer({dest: UPLOAD_TMP_URL});
+
+router.post('/upload_img', upload.any(), (req, res, next) => {
+	res.set("Access-Control-Allow-Origin", "*");
+	console.log('============')
+	console.log(req.body)
+	console.log(req.files[0]);  // 上传的文件信息
+	// 分析文件信息
+	let { originalname } = req.files[0]
+	let url = new URL(originalname)
+	console.log(url)
+
+
+	var now = new Date().getTime();
+	var des_file = UPLOAD_URL + now + ".jpg";
+	console.log(des_file);
+	fs.readFile( req.files[0].path, (err, data) => {
+		fs.writeFile(des_file, data, (err) => {
+			if( err ){
+				console.log('===== UPLOAD FILE ERROR =====')
+				console.log( err );
+			}else{
+				response = {
+					message:'File uploaded successfully',
+					filename: now+".jpg"
+				};
+				console.log( response );
+				res.end( JSON.stringify( response ) );
+			}
+		})
+	})
+})
+
+
+
+router.get('/image', (req, res) =>{
+	var querydata = req.query;
+	var url = querydata.url;
+	var imgpath = querydata.d;
+	imgpath = path.join(__dirname,"..","file", imgpath);
+
+	var bface = querydata.bface;
+	if(imgpath){
+		// var head = '../coolq-data/cq/data/image';
+		// var realpath = path.join(__dirname,head,imgpath);
+		res.sendFile(imgpath);
+	}else{
+		request({
+			url: url,
+			method: "GET"
+		}, function(error, response, body){
+			if(error&&error.code){
+				console.log('pipe error catched!')
+				console.log(error);
+			}
+		}).pipe(res);
+	}
+});
 
 
 module.exports = router;

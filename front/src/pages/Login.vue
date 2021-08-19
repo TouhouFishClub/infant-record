@@ -19,16 +19,16 @@
       type="password"
       required
     ></v-text-field>
-    <div class="captcha-container" style="display:none">
-      <v-text-field
-        v-model="captcha"
-        :counter="4"
-        :rules="captchaRules"
-        label="验证码"
-        required
-      ></v-text-field>
-      <img class="captcha-code" :src="`/p/captcha?_t=${now}`" @click="now = Date.now()">
-    </div>
+<!--    <div class="captcha-container">-->
+<!--      <v-text-field-->
+<!--        v-model="captcha"-->
+<!--        :counter="4"-->
+<!--        :rules="captchaRules"-->
+<!--        label="验证码"-->
+<!--        required-->
+<!--      ></v-text-field>-->
+<!--      <img class="captcha-code" :src="`/p/captcha?_t=${now}`" @click="now = Date.now()">-->
+<!--    </div>-->
 
     <v-btn
       :disabled="!valid"

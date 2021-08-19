@@ -15,7 +15,11 @@ export default new Vuex.Store({
     editType: 0, //0: 新增，1：更改
     editInfos: {},
     editDialog: false,
-    reloadReocrd: 0
+    reloadReocrd: 0,
+
+    hasImage: false,
+    imgObj: null,
+    clearImage: 0,
   },
   mutations: {
     tapTheme(state) {
@@ -56,6 +60,16 @@ export default new Vuex.Store({
             state.account = res.data.message
           }
         })
+    },
+
+    addImage(state, type) {
+      state.hasImage = type
+    },
+    changeImage(state, imgObj) {
+      state.imgObj = imgObj
+    },
+    clearImage(state){
+      state.clearImage = Date.now()
     }
   },
   actions: {

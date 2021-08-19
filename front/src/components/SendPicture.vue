@@ -201,6 +201,8 @@
             height /= ratio
           }
           // alert(Orientation)
+          console.log('======= Orientation =======')
+          console.log(Orientation)
           if(Orientation && Orientation != "" && Orientation != 1){
             /* 根据压缩的图片创建新的image */
             switch(Orientation){

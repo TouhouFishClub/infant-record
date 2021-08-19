@@ -191,7 +191,7 @@
     },
     methods: {
       showImage(img) {
-        console.log(img)
+        // console.log(img)
       },
       initialize () {
         this.datas = [{
@@ -208,7 +208,7 @@
         this.$store.commit('editRecord', item)
       },
       deleteItem (item) {
-        console.log(item)
+        // console.log(item)
         this.deleteTmp = item
         this.deleteDialog = true
       },

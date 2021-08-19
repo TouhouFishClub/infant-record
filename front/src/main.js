@@ -34,7 +34,7 @@ Viewer.setDefaults({
       show: 1,
       size: 'large',
       click(...args) {
-        console.log(args)
+        // console.log(args)
       }
     },
     next: 0,

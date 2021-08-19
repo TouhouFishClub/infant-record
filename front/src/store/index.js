@@ -38,7 +38,7 @@ export default new Vuex.Store({
         ts: Date.now()
       }
       state.editDialog = true
-      console.log('add new record')
+      // console.log('add new record')
     },
     editRecord(state, infos) {
       state.editType = 1
@@ -56,7 +56,7 @@ export default new Vuex.Store({
       window.axios.get('/api/user')
         .then(res => {
           if(res.data.status == 'ok') {
-            console.log(res.data.message)
+            // console.log(res.data.message)
             state.account = res.data.message
           }
         })

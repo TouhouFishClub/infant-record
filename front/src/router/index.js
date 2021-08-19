@@ -15,6 +15,7 @@ const routes = [
       { path: '/chart', name: 'Home', component: () => import('@/pages/Chart.vue') },
       { path: '/setting', name: 'Home', component: () => import('@/pages/Setting.vue') },
   ]},
+  { path: '/test', component: () => import('@/pages/test.vue') },
 ]
 
 const router = new VueRouter({

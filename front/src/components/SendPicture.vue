@@ -18,6 +18,14 @@
           <v-btn class="close" fab dark small depressed color="red" @click="deleteFile">
             <v-icon dark>mdi-close</v-icon>
           </v-btn>
+          <template v-if="uploadType == 'emit'">
+            <v-btn v-if="pending" class="upload rotate" fab dark small depressed color="green">
+              <v-icon dark>mdi-loading</v-icon>
+            </v-btn>
+            <v-btn v-else class="upload" fab dark small depressed color="green" @click="uploadFile">
+              <v-icon dark>mdi-cloud-upload</v-icon>
+            </v-btn>
+          </template>
         </div>
       </div>
     </div>
@@ -31,14 +39,16 @@
     name: "SendPicture",
     data() {
       return {
-        imagePre: ''
+        imagePre: '',
+        imgData: null,
+        pending: false
       }
     },
     props: {
       /*
       * uploadType:
       * [ normal ] 组件显示图片，并通过store传参
-      * [ emit   ] 将图片以数据格式传输给父组件
+      * [ emit   ] 将图片以emit方式传输给父组件
       * */
       uploadType: {
         type: String,
@@ -53,11 +63,17 @@
     },
     methods: {
       deleteFile() {
+        if(this.pending) {
+          return
+        }
         this.$refs.fileInput.value = ''
         this.imagePre = ''
         this.$store.commit('addImage', false)
       },
       selectImage() {
+        if(this.pending) {
+          return
+        }
         this.$refs.fileInput.click()
       },
       updateImage() {
@@ -94,9 +110,20 @@
             this.$store.commit('changeImage', fileData)
             break;
           case 'emit':
-            this.$emit('fileData', fileData)
+            this.imgData = fileData
             break;
         }
+      },
+      uploadFile(){
+        this.$emit('upload', this.imgData)
+        this.changePending()
+      },
+      changePending() {
+        this.pending = true
+      },
+      closePreview() {
+        this.pending = false
+        this.imagePre = ''
       },
       rotateImg (img, direction,canvas,ratio, level) {
         //最小与最大旋转方向，图片旋转4次后回到原方向
@@ -236,6 +263,14 @@
 </script>
 
 <style lang="scss" scoped>
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
   .send-pic {
     padding: 0 10px;
     position: relative;
@@ -270,6 +305,14 @@
             position: absolute;
             right: -30px;
             top: -30px;
+          }
+          .upload {
+            position: absolute;
+            right: -30px;
+            top: 20px;
+            &.rotate {
+              animation: rotate 500ms linear infinite;
+            }
           }
           img {
             max-width: 100%;

@@ -68,7 +68,23 @@
             <v-col
               cols="12"
             >
-              <SendPicture/>
+              <SendPicture
+                uploadType="emit"
+                @upload="uploadImage"
+                ref="picContext"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+            >
+              <div class="image-container">
+                <div class="image-item-container" v-for="img in editInfos.imgs">
+                  <img src="https://my.eee.uci.edu/assets/eee-plus-tools-icon.png"/>
+                </div>
+                <div class="image-item-container">
+                  <img src="https://my.eee.uci.edu/assets/eee-plus-tools-icon.png"/>
+                </div>
+              </div>
             </v-col>
           </v-row>
         </v-container>
@@ -112,6 +128,15 @@
       ])
     },
     methods: {
+      uploadImage(img) {
+        let data = new FormData();
+        data.append("file", img, img.name)
+        // console.log(data.get('file'))
+        // return axios.post("http://127.0.0.1:8233/file", data, {
+        this.$axios.post(`/api/upload_img`, data, {
+          headers: { "content-type": "multipart/form-data" }
+        })
+      },
       saveEdit() {
         if(false){
           if(this.editInfos.remark){
@@ -141,6 +166,28 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .image-container {
+    overflow: hidden;
+    .image-item-container {
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ddd;
+      float: left;
+      position: relative;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+      }
+    }
+  }
 
 </style>

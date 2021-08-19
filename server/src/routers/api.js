@@ -3,7 +3,6 @@ const Db = require('../connectDb')
 const router = express.Router();
 const fs = require('fs-extra')
 const path = require('path-extra')
-const url = require('url')
 const multer = require('multer')
 const ObjectId = require('mongodb').ObjectID;
 
@@ -176,6 +175,7 @@ router.post('/setUserInfo', async (req, res) => {
  */
 
 var UPLOAD_TMP_URL = path.join(__dirname, '..', '..', 'tmp_file');
+fs.ensureDirSync(UPLOAD_TMP_URL)
 var UPLOAD_URL = path.join(__dirname, '..', '..', 'file');
 var upload = multer({dest: UPLOAD_TMP_URL});
 
@@ -186,12 +186,13 @@ router.post('/upload_img', upload.any(), (req, res, next) => {
 	console.log(req.files[0]);  // 上传的文件信息
 	// 分析文件信息
 	let { originalname } = req.files[0]
-	let url = new URL(originalname)
-	console.log(url)
+	let extname = path.extname(originalname)
+	console.log(extname)
 
-
-	var now = new Date().getTime();
-	var des_file = UPLOAD_URL + now + ".jpg";
+	let filename = `${Date.now()}${extname}`
+	let user_dir = path.join(UPLOAD_URL, req.session.user.username)
+	fs.ensureDirSync(user_dir)
+	let des_file = path.join(user_dir, '.', filename)
 	console.log(des_file);
 	fs.readFile( req.files[0].path, (err, data) => {
 		fs.writeFile(des_file, data, (err) => {
@@ -201,7 +202,7 @@ router.post('/upload_img', upload.any(), (req, res, next) => {
 			}else{
 				response = {
 					message:'File uploaded successfully',
-					filename: now+".jpg"
+					filename
 				};
 				console.log( response );
 				res.end( JSON.stringify( response ) );

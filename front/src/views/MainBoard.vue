@@ -75,6 +75,8 @@
         this.drawer = true
       }
       this.$store.commit('updateAccount')
+      // 关闭一下编辑框
+      this.$store.commit('closeEdit')
     },
     watch: {
       drawer(val) {

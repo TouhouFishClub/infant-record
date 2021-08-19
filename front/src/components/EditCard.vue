@@ -78,8 +78,16 @@
               cols="12"
             >
               <div class="image-container">
-                <div class="image-item-container" v-for="img in imgs">
+                <div class="image-item-container" v-for="img in imgs" @click="ctrlTarget = img.filename">
                   <img :src="`/api/image?d=${img.filename}`"/>
+                  <div class="image-ctrl-container" :class="{dark : $store.state.isDark}" v-if="ctrlTarget == img.filename">
+                    <v-btn fab dark small depressed color="blue" @click.stop="ctrlTarget = ''">
+                      <v-icon dark>mdi-location-exit</v-icon>
+                    </v-btn>
+                    <v-btn fab dark small depressed color="red" @click.stop="removeImage(img)">
+                      <v-icon dark>mdi-image-remove</v-icon>
+                    </v-btn>
+                  </div>
                 </div>
               </div>
             </v-col>
@@ -115,6 +123,7 @@
     data: () => ({
       dialog: true,
       imgs: [],
+      ctrlTarget: '',
     }),
     components: {
       SendPicture,
@@ -126,6 +135,11 @@
       ])
     },
     methods: {
+      removeImage(img) {
+        let index = this.imgs.findIndex(x => x.filename == img.filename)
+        this.imgs.splice(index, 1)
+        this.ctrlTarget = ''
+      },
       uploadImage(img) {
         let data = new FormData();
         data.append("file", img, img.name)
@@ -175,10 +189,11 @@
       editDialog (val, old) {
         if(val) {
           if(this.editInfos.imgs) {
-            this.imgs = this.editInfos.imgs
+            this.imgs = this.editInfos.imgs.concat([])
           }
         } else {
           this.imgs = []
+          this.ctrlTarget = ''
         }
       }
     }
@@ -196,6 +211,21 @@
       position: relative;
       margin-left: 10px;
       margin-bottom: 10px;
+      .image-ctrl-container {
+        width: 100px;
+        height: 100px;
+        background-color: rgba(0,0,0,.5);
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        &.dark {
+          background-color: rgba(255,255,255,.5);
+        }
+      }
       img {
         position: absolute;
         top: 0;

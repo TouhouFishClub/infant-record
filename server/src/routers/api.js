@@ -213,13 +213,19 @@ router.post('/upload_img', upload.any(), (req, res, next) => {
 
 
 
-router.get('/image', (req, res) =>{
-	var querydata = req.query;
-	var url = querydata.url;
-	var imgpath = querydata.d;
-	imgpath = path.join(__dirname,"..","file", imgpath);
+router.get('/image', (req, res) => {
+	let { d } = req.query,
+		imgpath = path.join(__dirname, "..", '..', "file", req.session.user.username, d);
 
-	var bface = querydata.bface;
+
+
+
+	// var querydata = req.query;
+	// var url = querydata.url;
+	// var imgpath = querydata.d;
+	// imgpath = path.join(__dirname,"..","file", imgpath);
+	//
+	// var bface = querydata.bface;
 	if(imgpath){
 		// var head = '../coolq-data/cq/data/image';
 		// var realpath = path.join(__dirname,head,imgpath);

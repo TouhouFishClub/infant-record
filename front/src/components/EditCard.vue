@@ -78,11 +78,8 @@
               cols="12"
             >
               <div class="image-container">
-                <div class="image-item-container" v-for="img in editInfos.imgs">
-                  <img src="https://my.eee.uci.edu/assets/eee-plus-tools-icon.png"/>
-                </div>
-                <div class="image-item-container">
-                  <img src="https://my.eee.uci.edu/assets/eee-plus-tools-icon.png"/>
+                <div class="image-item-container" v-for="img in imgs">
+                  <img :src="`/api/image?d=${img.filename}`"/>
                 </div>
               </div>
             </v-col>
@@ -117,6 +114,7 @@
     name: "EditCard",
     data: () => ({
       dialog: true,
+      imgs: [],
     }),
     components: {
       SendPicture,
@@ -136,16 +134,29 @@
         this.$axios.post(`/api/upload_img`, data, {
           headers: { "content-type": "multipart/form-data" }
         })
+          .then(res => {
+            // console.log(res.data)
+            let { filename } = res.data
+            this.imgs.push({
+              filename,
+              ts: Date.now()
+            })
+            this.$refs.picContext.closePreview()
+          })
+          .catch(err => {
+            this.$refs.picContext.closePreview()
+            console.log(err);
+          })
       },
       saveEdit() {
-        if(false){
-          if(this.editInfos.remark){
-            this.editInfos.remark = this.editInfos.remark + '[img:'+this.editInfos.extra+']'
-          }else{
-            this.editInfos.remark = '[img:'+this.editInfos.extra+']'
-          }
-        }
-        this.$axios.post('/api/update', this.editInfos)
+        // if(false){
+        //   if(this.editInfos.remark){
+        //     this.editInfos.remark = this.editInfos.remark + '[img:'+this.editInfos.extra+']'
+        //   }else{
+        //     this.editInfos.remark = '[img:'+this.editInfos.extra+']'
+        //   }
+        // }
+        this.$axios.post('/api/update', Object.assign(this.editInfos, {imgs: this.imgs}))
           .then(res => {
             let data = res.data
             switch(data.status) {
@@ -160,8 +171,16 @@
           })
       }
     },
-    watch() {
-      'editDialog'
+    watch: {
+      editDialog (val, old) {
+        if(val) {
+          if(this.editInfos.imgs) {
+            this.imgs = this.editInfos.imgs
+          }
+        } else {
+          this.imgs = []
+        }
+      }
     }
   }
 </script>

@@ -147,10 +147,10 @@
       headers: [
         { text: '时间', value: 'ts'},
         { text: '体重（kg)', value: 'weight' },
+        { text: '图片', value: 'imgs', sortable: false },
         { text: '身高（cm)', value: 'height' },
         { text: '头围', value: 'hc' },
         { text: '备注', value: 'remark', sortable: false },
-        { text: '图片', value: 'imgs', sortable: false },
         { text: '操作', value: 'actions', sortable: false },
       ],
     }),

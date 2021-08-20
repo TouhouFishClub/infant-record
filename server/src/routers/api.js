@@ -70,7 +70,9 @@ router.get('/fetch', async (req, res) => {
 router.post('/update', async (req, res) => {
 	let data = req.body
 	data.username = req.session.user.username
-	data._id=data.ts;
+	if(!data._id){
+      data._id=data.ts;
+	}
 	data.time = new Date(data.ts);
 	console.log(data);
 	await client.db('db_baby').collection('cl_baby_info').save(data)

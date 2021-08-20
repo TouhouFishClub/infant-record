@@ -99,7 +99,7 @@
         <v-btn
           color="primary"
           text
-          @click="$store.commit('closeEdit')"
+          @click="closePanel"
         >
           关闭
         </v-btn>
@@ -108,7 +108,7 @@
           text
           @click="saveEdit"
         >
-          保存
+          {{ pending ? '保存中...' : '保存' }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -124,6 +124,7 @@
       dialog: true,
       imgs: [],
       ctrlTarget: '',
+      pending: false,
     }),
     components: {
       SendPicture,
@@ -135,6 +136,12 @@
       ])
     },
     methods: {
+      closePanel() {
+        if(this.pending) {
+          return
+        }
+        this.$store.commit('closeEdit')
+      },
       removeImage(img) {
         let index = this.imgs.findIndex(x => x.filename == img.filename)
         this.imgs.splice(index, 1)
@@ -163,23 +170,22 @@
           })
       },
       saveEdit() {
-        // if(false){
-        //   if(this.editInfos.remark){
-        //     this.editInfos.remark = this.editInfos.remark + '[img:'+this.editInfos.extra+']'
-        //   }else{
-        //     this.editInfos.remark = '[img:'+this.editInfos.extra+']'
-        //   }
-        // }
+        if(this.pending) {
+          return
+        }
+        this.pending = true
         this.$axios.post('/api/update', Object.assign(this.editInfos, {imgs: this.imgs}))
           .then(res => {
             let data = res.data
             switch(data.status) {
               case 'ok':
+                this.pending = false
                 this.$store.commit('alert', '保存成功')
                 this.$store.commit('closeEdit')
                 this.$store.commit('reloadReocrd')
                 break
               case 'err':
+                this.pending = false
                 break
             }
           })

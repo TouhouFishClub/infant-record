@@ -35,10 +35,10 @@
       ])
     },
     beforeMount() {
-      this.fetchData()
+      //this.fetchData()
     },
     mounted: function() {
-
+      this.fetchData()
     },
     methods: {
       fetchData() {

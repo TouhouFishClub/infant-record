@@ -35,20 +35,7 @@
       ])
     },
     beforeMount() {
-      var un = this.getQueryString("u");
-      var pwd = this.getQueryString("p");
-      if(un&&pwd){
-        this.$axios.post('/p/a/login', {
-          username: un,
-          password: pwd,
-          captcha: ''
-        }).then(res => {
-          console.log(res)
-          this.fetchData()
-        });
-      }else{
-        this.fetchData()
-      }
+      this.fetchData()
     },
     mounted: function() {
 

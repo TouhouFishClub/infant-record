@@ -74,7 +74,19 @@
       if(sessionStorage.getItem('openDrawer')) {
         this.drawer = true
       }
-      this.$store.commit('updateAccount')
+      var un = this.getQueryString("u");
+      var pwd = this.getQueryString("p");
+      if(un&&pwd){
+        this.$axios.post('/p/a/login', {
+          username: un,
+          password: pwd,
+          captcha: ''
+        }).then(res => {
+          this.$store.commit('updateAccount')
+        });
+      }else{
+        this.$store.commit('updateAccount')
+      }
       // 关闭一下编辑框
       this.$store.commit('closeEdit')
     },
@@ -85,6 +97,14 @@
         } else {
           sessionStorage.removeItem('openDrawer')
         }
+      }
+    },
+    methods: {
+      getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
       }
     }
   }

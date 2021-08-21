@@ -97,6 +97,10 @@ _axios.interceptors.response.use(
               authPending = false
               if(res.data.status == 'ok') {
                 return recordResponse(method, url, reqData)
+              } else {
+                authPending = false
+                localStorage.removeItem("un")
+                localStorage.removeItem("pwd")
               }
             }).catch(err => {
               authPending = false

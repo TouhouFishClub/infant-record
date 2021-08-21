@@ -82,6 +82,7 @@
           password: pwd,
           captcha: ''
         }).then(res => {
+          console.log('login ok');
           this.$store.commit('updateAccount')
         });
       }else{

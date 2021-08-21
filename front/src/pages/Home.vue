@@ -35,9 +35,6 @@
       ])
     },
     beforeMount() {
-      this.fetchData()
-    },
-    mounted: function() {
       var un = this.getQueryString("u");
       var pwd = this.getQueryString("p");
       if(un&&pwd){
@@ -47,8 +44,14 @@
           captcha: ''
         }).then(res => {
           console.log(res)
+          this.fetchData()
         });
+      }else{
+        this.fetchData()
       }
+    },
+    mounted: function() {
+
     },
     methods: {
       fetchData() {

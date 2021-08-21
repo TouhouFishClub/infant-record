@@ -73,6 +73,9 @@ _axios.interceptors.response.use(
                     router.push('/')
                     return
                 }
+              }else{
+                localStorage.removeItem("un")
+                localStorage.removeItem("pwd")
               }
             })
           )

@@ -77,18 +77,9 @@
       console.log('before mainboard mount')
       var un = this.getQueryString("u");
       var pwd = this.getQueryString("p");
-      if(un&&pwd){
-        this.$axios.post('/p/a/login', {
-          username: un,
-          password: pwd,
-          captcha: ''
-        }).then(res => {
-          console.log('login ok');
-          this.$store.commit('updateAccount')
-        });
-      }else{
-        this.$store.commit('updateAccount')
-      }
+      localStorage.setItem("un",un);
+      localStorage.setItem("pwd",pwd);
+      this.$store.commit('updateAccount')
       // 关闭一下编辑框
       this.$store.commit('closeEdit')
     },

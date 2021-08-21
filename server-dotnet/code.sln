@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{2483AAF3-9A95-45B4-ADA0-0D58109D0575}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		global.json = global.json
+		NuGet.Config = NuGet.Config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{013F4937-6479-4D00-8BE8-AE44C060B617}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfantRecord", "src\InfantRecord\InfantRecord.csproj", "{740E2BE5-759B-4B2D-9339-AED1415EB319}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{740E2BE5-759B-4B2D-9339-AED1415EB319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{740E2BE5-759B-4B2D-9339-AED1415EB319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{740E2BE5-759B-4B2D-9339-AED1415EB319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{740E2BE5-759B-4B2D-9339-AED1415EB319}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{740E2BE5-759B-4B2D-9339-AED1415EB319} = {013F4937-6479-4D00-8BE8-AE44C060B617}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10DD435F-A744-49A0-AF00-58380E78F080}
+	EndGlobalSection
+EndGlobal

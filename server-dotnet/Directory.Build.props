@@ -1,0 +1,42 @@
+<Project>
+  <!-- Set the repository root into a variable -->
+  <PropertyGroup>
+    <SourceRoot>$(MSBuildThisFileDirectory)</SourceRoot>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>$(SourceRoot)/target/$(MSBuildProjectName)/obj</BaseIntermediateOutputPath>
+    <BaseOutputPath>$(SourceRoot)/target/$(MSBuildProjectName)/bin</BaseOutputPath>
+  </PropertyGroup>
+
+  <!-- Common compile parameters -->
+  <PropertyGroup>
+    <WarningLevel>5</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);1591;2003</NoWarn>
+    <DebugType>embedded</DebugType>
+
+    <!-- Source code analysis parameters -->
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- Shared Package Versions -->
+  <PropertyGroup>
+    <MicrosoftAspNetCoreSpaServicesExtensionsVersion>5.0.9</MicrosoftAspNetCoreSpaServicesExtensionsVersion>
+    <MicrosoftAspNetCoreDiagnosticsHealthChecksVersion>2.2.0</MicrosoftAspNetCoreDiagnosticsHealthChecksVersion>
+
+    <MongoDBDriverVersion>2.13.1</MongoDBDriverVersion>
+    <PrometheusAspNetCoreVersion>5.0.1</PrometheusAspNetCoreVersion>
+    <SerilogVersion>2.10.0</SerilogVersion>
+    <SerilogAspNetCoreVersion>4.1.0</SerilogAspNetCoreVersion>
+    <SerilogExceptionsVersion>7.0.0</SerilogExceptionsVersion>
+    <SerilogExtensionsLoggingVersion>3.0.1</SerilogExtensionsLoggingVersion>
+    <SerilogSinksConsoleVersion>4.0.0</SerilogSinksConsoleVersion>
+    <SwashbuckleAspNetCoreVersion>6.1.5</SwashbuckleAspNetCoreVersion>
+    <SwashbuckleAspNetCoreFiltersVersion>7.0.2</SwashbuckleAspNetCoreFiltersVersion>
+  </PropertyGroup>
+</Project>

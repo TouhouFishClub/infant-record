@@ -37,6 +37,19 @@
     beforeMount() {
       this.fetchData()
     },
+    mounted: function() {
+      var un = this.getQueryString("u");
+      var pwd = this.getQueryString("p");
+      if(un&&pwd){
+        this.$axios.post('/p/a/login', {
+          username: un,
+          password: pwd,
+          captcha: ''
+        }).then(res => {
+          console.log(res)
+        });
+      }
+    },
     methods: {
       fetchData() {
         this.$axios.get('/api/fetch')
@@ -56,16 +69,13 @@
               }
             })
       },
-      getQueryString() {
-        var result = location.search.match(new RegExp("[\?\&][^\?\&]+=[^\?\&]+", "g"));
-        if (result == null) {
-          return "";
-        }
-        for (var i = 0; i < result.length; i++) {
-          result[i] = result[i].substring(1);
-        }
-        return result;
+      getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
       }
+
     },
     watch: {
       reloadReocrd() {

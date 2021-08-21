@@ -21,6 +21,7 @@ namespace InfantRecord
     public static class Program
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:不捕获常规异常类型", Justification = "<挂起>")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0058:永远不会使用表达式值", Justification = "<挂起>")]
         public static void Main(string[] args)
         {
             Activity.DefaultIdFormat = ActivityIdFormat.W3C;
@@ -36,27 +37,27 @@ namespace InfantRecord
                     {
                         var configuration = context.Configuration;
 
-                        _ = services
+                        services
                             .AddOptions()
                             .Configure<MongoOptions>(configuration.GetSection("Mongo"));
 
-                        _ = services
+                        services
                             .AddSingleton(services => new MongoClient(services.GetRequiredService<IOptions<MongoOptions>>().Value.ConnectionString));
                     })
                     .ConfigureWebHostDefaults(builder =>
                     {
-                        _ = builder
+                        builder
                             .ConfigureServices((context, services) =>
                             {
-                                _ = services.AddAuthentication().AddToken();
-                                _ = services.AddControllers().AddRESTfulControllerNameConvention();
-                                _ = services.AddHealthChecks();
+                                services.AddAuthentication().AddToken();
+                                services.AddControllers().AddRESTfulControllerNameConvention();
+                                services.AddHealthChecks();
                                 services.AddSpaStaticFiles(configuration =>
                                 {
                                     configuration.RootPath = "ClientApp/dist";
                                 });
-                                _ = services.AddSwaggerExamplesFromAssemblies(typeof(Program).Assembly);
-                                _ = services.AddSwaggerGen(options =>
+                                services.AddSwaggerExamplesFromAssemblies(typeof(Program).Assembly);
+                                services.AddSwaggerGen(options =>
                                 {
                                     options.AddSecurityDefinition(TokenAuthenticationDefaults.AuthenticationScheme, new OpenApiSecurityScheme
                                     {
@@ -78,27 +79,27 @@ namespace InfantRecord
 
                                 if (env.IsDevelopment())
                                 {
-                                    _ = app.UseDeveloperExceptionPage();
-                                    _ = app.UseSwagger();
-                                    _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfantRecord v1"));
+                                    app.UseDeveloperExceptionPage();
+                                    app.UseSwagger();
+                                    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfantRecord v1"));
                                 }
 
-                                _ = app.UseStaticFiles();
+                                app.UseStaticFiles();
                                 if (!env.IsDevelopment())
                                 {
                                     app.UseSpaStaticFiles();
                                 }
 
-                                _ = app.UseRouting();
-                                _ = app.UseHttpMetrics();
-                                _ = app.UseAuthentication();
-                                _ = app.UseAuthorization();
+                                app.UseRouting();
+                                app.UseHttpMetrics();
+                                app.UseAuthentication();
+                                app.UseAuthorization();
 
-                                _ = app.UseEndpoints(endpoints =>
+                                app.UseEndpoints(endpoints =>
                                 {
-                                    _ = endpoints.MapHealthChecks("/healthz");
-                                    _ = endpoints.MapMetrics();
-                                    _ = endpoints.MapControllers();
+                                    endpoints.MapHealthChecks("/healthz");
+                                    endpoints.MapMetrics();
+                                    endpoints.MapControllers();
                                 });
                                 app.UseSpa(spa =>
                                 {

@@ -13,7 +13,7 @@ using MongoDB.Driver;
 
 namespace InfantRecord.AspNetCore.Authentication.Token
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Maintainability", "CA1812:Avoid uninstantiated internal classes", Justification = "<挂起>")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812", Justification = "<挂起>")]
     internal class TokenAuthenticationHandler : AuthenticationHandler<TokenAuthenticationOptions>
     {
         public TokenAuthenticationHandler(
@@ -25,7 +25,6 @@ namespace InfantRecord.AspNetCore.Authentication.Token
         {
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Maintainability", "CA1508:避免死条件代码", Justification = "<挂起>")]
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             string token = this.Request.Headers[this.Options.TokenHeaderName];

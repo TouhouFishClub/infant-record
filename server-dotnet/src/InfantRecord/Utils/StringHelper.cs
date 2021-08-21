@@ -10,7 +10,6 @@ namespace InfantRecord.Utils
         /// <summary>
         /// 返回 <paramref name="value"/> 的 SHA256 散列字符串表示
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Maintainability", "CA1508:避免死条件代码", Justification = "<挂起>")]
         public static string ToSHA256(this string value)
         {
             if (value is null)

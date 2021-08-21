@@ -30,13 +30,45 @@ _axios.interceptors.request.use(
   }
 );
 
+const wait = (timeout = 1000) =>
+  new Promise((resolve,reject) => {
+    setTimeout(() => {
+      console.log('wait')
+      resolve()
+    }, timeout)
+  })
+
+const recordResponse = (method, url, reqData) => {
+  switch (method) {
+    case 'get':
+      return Promise.resolve(
+        _axios.get(url).then(resp => {
+          // console.log('请求成功')
+          return resp
+        })
+      )
+    case 'post':
+      return Promise.resolve(
+        _axios.post(url, reqData).then(resp => {
+          // console.log('请求成功')
+          return resp
+        })
+      )
+    default:
+      router.push('/')
+      return
+  }
+}
+
+let authPending = false
+
 // Add a response interceptor
 _axios.interceptors.response.use(
   function(response) {
     // Do something with response data
     return response;
   },
-  function(error) {
+  async function(error) {
     // Do something with response error
     let s = (error && error.response) ? error.response.status : 500,
       url = error.config.url,
@@ -47,33 +79,27 @@ _axios.interceptors.response.use(
         let un = localStorage.getItem('un')
         let pwd = localStorage.getItem('pwd')
         if(un && pwd) {
+          /* 如果多请求并发，则只有一个进入登录逻辑，其他请求全部阻塞 */
+          if(authPending) {
+            while(authPending) {
+              await wait(100)
+            }
+            return recordResponse(method, url, reqData)
+          } else {
+            authPending = true
+          }
           return Promise.resolve(
             _axios.post('/p/a/login', {
               username: un,
               password: pwd,
               captcha: ''
             }).then(res => {
+              authPending = false
               if(res.data.status == 'ok') {
-                switch (method) {
-                  case 'get':
-                    return Promise.resolve(
-                      _axios.get(url).then(resp => {
-                        // console.log('请求成功')
-                        return resp
-                      })
-                    )
-                  case 'post':
-                    return Promise.resolve(
-                      _axios.post(url, reqData).then(resp => {
-                        // console.log('请求成功')
-                        return resp
-                      })
-                    )
-                  default:
-                    router.push('/')
-                    return
-                }
+                return recordResponse(method, url, reqData)
               }
+            }).catch(err => {
+              authPending = false
             })
           )
         }

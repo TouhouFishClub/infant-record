@@ -74,6 +74,7 @@
       if(sessionStorage.getItem('openDrawer')) {
         this.drawer = true
       }
+      console.log('before mainboard mount')
       var un = this.getQueryString("u");
       var pwd = this.getQueryString("p");
       if(un&&pwd){

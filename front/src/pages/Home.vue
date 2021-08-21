@@ -38,6 +38,7 @@
       //this.fetchData()
     },
     mounted: function() {
+      console.log('home mounted')
       this.fetchData()
     },
     methods: {

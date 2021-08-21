@@ -42,6 +42,7 @@
     },
     methods: {
       fetchData() {
+        console.log("will fetch data");
         this.$axios.get('/api/fetch')
             .then(res => {
               let data = res.data

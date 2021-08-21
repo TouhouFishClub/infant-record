@@ -40,21 +40,31 @@
     methods: {
       fetchData() {
         this.$axios.get('/api/fetch')
-          .then(res => {
-            let data = res.data
-            switch(data.status) {
-              case 'ok':
-                this.list = data.message.reverse() || []
-                break
-              case 'err_empty':
-                this.$store.commit('alert', data.message)
-                this.list = []
-                break
-              case 'err':
-                this.$store.commit('alert', data.message)
-                break
-            }
-          })
+            .then(res => {
+              let data = res.data
+              switch (data.status) {
+                case 'ok':
+                  this.list = data.message.reverse() || []
+                  break
+                case 'err_empty':
+                  this.$store.commit('alert', data.message)
+                  this.list = []
+                  break
+                case 'err':
+                  this.$store.commit('alert', data.message)
+                  break
+              }
+            })
+      },
+      getQueryString() {
+        var result = location.search.match(new RegExp("[\?\&][^\?\&]+=[^\?\&]+", "g"));
+        if (result == null) {
+          return "";
+        }
+        for (var i = 0; i < result.length; i++) {
+          result[i] = result[i].substring(1);
+        }
+        return result;
       }
     },
     watch: {

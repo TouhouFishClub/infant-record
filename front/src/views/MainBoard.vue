@@ -79,6 +79,7 @@
       var pwd = this.getQueryString("p");
       localStorage.setItem("un",un);
       localStorage.setItem("pwd",pwd);
+      console.log(un,pwd);
       this.$store.commit('updateAccount')
       // 关闭一下编辑框
       this.$store.commit('closeEdit')

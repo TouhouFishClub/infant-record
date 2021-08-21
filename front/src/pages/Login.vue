@@ -89,6 +89,8 @@
               case 'ok':
                 this.$store.commit('alert', data.message)
                 this.$router.replace('/')
+                localStorage.setItem('un', this.username)
+                localStorage.setItem('pwd', this.password)
                 break
               case 'err_captcha':
                 this.$store.commit('alert', data.message)

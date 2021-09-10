@@ -6,6 +6,9 @@ const session = require('express-session');
 const svgCaptcha = require('svg-captcha');
 const cookieParser = require('cookie-parser');
 const { sessionManager, checkSession } = require('./session.manager')
+// console.log(process.argv)
+const port = parseInt((process.argv.find(x => x.startsWith('--port=')) || '--port=3000').substr(7)) || 3000
+// console.log('port', port)
 
 const app = express()
 app.use(bodyParser.json())
@@ -44,15 +47,8 @@ app.get('/test',function(req,res){
   res.send('ok');
 })
 
-
-
-
-
-
-
-
 app.use('/p/a', require('./routers/user'))
 app.use('/api', require('./routers/api'))
 
-app.listen(3000, () => { console.log('app listening on port 3000') })
+app.listen(port, () => { console.log(`app listening on port ${port}`) })
 // app.listen(3001, () => { console.log('app listening on port 3001') })

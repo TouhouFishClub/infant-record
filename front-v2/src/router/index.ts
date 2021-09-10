@@ -1,24 +1,22 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import protectedRoute from '../middlewares/protected'
-import Home from '../views/Home.vue'
-import PageTwo from '../views/pageTwo.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import('@/views/Home.vue'),
   },
   {
     path: '/pagetwo',
     name: 'PageTwo',
-    component: PageTwo,
+    component: () => import('@/views/pageTwo.vue'),
     beforeEnter: protectedRoute,
   },
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 })
 

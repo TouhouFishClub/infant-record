@@ -22,4 +22,16 @@ export default defineConfig({
       scss: { additionalData: ` @import "@/styles/variables.scss";` },
     },
   },
+  server: {
+    proxy: {
+      // 字符串简写写法
+      '/p': 'http://localhost:3080',
+      // 选项写法
+      '/api': {
+        target: 'http://jsonplaceholder.typicode.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
+    }
+  }
 });

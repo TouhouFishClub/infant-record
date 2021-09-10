@@ -49,9 +49,9 @@
         <v-icon class="icon"> mdi-thumb-down </v-icon>
       </v-btn>
     </div>
-    <a href="https://github.com/peshanghiwa" target="_blank" class="creator"
-      >Peshang Hiwa</a
-    >
+    <a href="https://github.com/peshanghiwa" target="_blank" class="creator">Peshang Hiwa</a>
+    <img class="captcha-code" :src="`/p/captcha?_t=${Date.now()}`">
+
   </div>
 </template>
 <script setup lang="ts">

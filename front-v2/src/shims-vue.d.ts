@@ -5,5 +5,6 @@ declare module "*.vue" {
     Record<string, unknown>,
     unknown
   >;
+  // @ts-ignore
   export default component;
 }

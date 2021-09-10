@@ -4,6 +4,7 @@
     "stylelint-config-standard"
   ],
   "rules": {
-    "rule-empty-line-before": null
+    "rule-empty-line-before": null,
+    "no-empty-source": null
   }
 }

@@ -1,5 +1,5 @@
 import { ActionContext } from 'vuex'
-import Auth from '../types/authType'
+import Auth from '@/types/authType'
 
 export const AuthStore = {
   state: {

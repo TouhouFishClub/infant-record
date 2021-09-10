@@ -9,6 +9,6 @@ export default (
   if (store.getters.getAuth) {
     next()
   } else {
-    next('/')
+    next('/login')
   }
 }

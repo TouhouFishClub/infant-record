@@ -57,7 +57,7 @@
 <script setup lang="ts">
   import { computed, ref } from '@vue/runtime-core'
   import HelloWorld from '../components/HelloWorld.vue'
-  import { key } from '../store'
+  import { key } from '@/store'
   import { useStore } from 'vuex'
 
   const count = ref(0)

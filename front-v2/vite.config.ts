@@ -1,13 +1,25 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-const path = require('path')
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import vueI18n from "@intlify/vite-plugin-vue-i18n";
 
-// https://vitejs.dev/config/
+import { join, resolve } from "path";
 export default defineConfig({
-  plugins: [vue()],
+  mode: "development",
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
-    }
-  }
-})
+      "@": join(__dirname, "./src"),
+    },
+  },
+  plugins: [
+    vue(),
+    vueI18n({
+      include: resolve(__dirname, "./locales/**"),
+    }),
+  ],
+  define: { "process.env": {} },
+  css: {
+    preprocessorOptions: {
+      scss: { additionalData: ` @import "@/styles/variables.scss";` },
+    },
+  },
+});

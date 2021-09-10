@@ -19,6 +19,9 @@
     <v-btn class="mx-1" elevation="0" color="info" @click="locale = 'sp'"
       >Sp</v-btn
     >
+    <v-btn class="mx-1" elevation="0" color="info" @click="locale = 'zh_cn'"
+      >zh_cn</v-btn
+    >
   </div>
 
   <v-btn class="ma-2" color="#41B883" elevation="0" @click="$router.push('/')"

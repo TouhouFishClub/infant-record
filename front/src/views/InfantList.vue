@@ -38,7 +38,7 @@
       <template v-slot:item.ts="{ item }">
         {{ item.ts | timeFmt }}
         <span v-if="$store.state.account.birth">
-          (第 {{Math.floor((new Date(item.ts).setHours(8).getTime() - $store.state.account.birth) / 24 / 60 / 60 / 1000)}} 天)
+          (第 {{Math.floor((new Date(new Date(item.ts).setHours(8)).getTime() - $store.state.account.birth) / 24 / 60 / 60 / 1000)}} 天)
         </span>
       </template>
 

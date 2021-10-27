@@ -42,8 +42,8 @@ router.post('/test', async (req, res) => {
  */
 router.get('/fetch', async (req, res) => {
 
-	let data = await client.db('db_baby').collection('cl_baby_info').find({'$query':{'username': req.session.user.username},'$sort':{'_id':-1}}).toArray()
-
+	let data = await client.db('db_baby').collection('cl_baby_info').find({'username': req.session.user.username}).toArray()
+	data.sort(function(a,b){return b._id-a._id});
 	if(data.length < 1) {
 		res.send({
 			status: 'err_empty',
